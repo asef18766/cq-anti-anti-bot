@@ -1,7 +1,7 @@
 import cv2
 import numpy
 from datetime import datetime
-import pprint
+from utils import get_current_date_str
 LOG_LOC  = "log"
 temp_pic = cv2.imread("pic_set/temp.png")
 
@@ -20,7 +20,7 @@ def cmp_screenshot(src:str, fun_hook):
         ptc += 1
 
     if ptc != 0:
-        cv2.imwrite(f'{LOG_LOC}/result-{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}.png', src_pic)
+        cv2.imwrite(f'{LOG_LOC}/result-{get_current_date_str()}.png', src_pic)
         if fun_hook:
             fun_hook()
     

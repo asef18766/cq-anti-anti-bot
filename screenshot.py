@@ -1,6 +1,7 @@
 import win32ui, win32gui
 from ctypes import windll
 from PIL import Image
+from utils import get_current_date_str
 
 def scrrenshot(hwnd, filename:str):
     # Change the line below depending on whether you want the whole window
@@ -26,12 +27,14 @@ def scrrenshot(hwnd, filename:str):
 
     bmpinfo = saveBitMap.GetInfo()
     bmpstr = saveBitMap.GetBitmapBits(True)
-
-    im = Image.frombuffer(
-        'RGB',
-        (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
-        bmpstr, 'raw', 'BGRX', 0, 1)
-
+    # TODO: fix here when real verification occur
+    try:
+        im = Image.frombuffer(
+            'RGB',
+            (bmpinfo['bmWidth'], bmpinfo['bmHeight']),
+            bmpstr, 'raw', 'BGRX', 0, 1)
+    except:
+        pass
     win32gui.DeleteObject(saveBitMap.GetHandle())
     saveDC.DeleteDC()
     mfcDC.DeleteDC()
